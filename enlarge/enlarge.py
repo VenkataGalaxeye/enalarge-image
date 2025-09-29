@@ -4,14 +4,14 @@ import argparse
 
 def enlarge(image_path: str, output_dir: str = "output"):
     """
-    Takes one image as input and saves two identical copies of it.
+    Enlarges the input image (2x scale) and saves it in the output directory.
 
     Args:
         image_path (str): Path to the input image.
-        output_dir (str): Directory where the copies will be saved.
+        output_dir (str): Directory where the enlarged image will be saved.
 
     Returns:
-        list: Paths of the two output images.
+        str: Path of the enlarged output image.
     """
     # Ensure output directory exists
     os.makedirs(output_dir, exist_ok=True)
@@ -22,26 +22,34 @@ def enlarge(image_path: str, output_dir: str = "output"):
     except Exception as e:
         raise ValueError(f"Error opening image: {e}")
 
-    # Define output file names
+    # Get original size
+    width, height = img.size
+
+    # Double the size (2x enlargement)
+    enlarged_img = img.resize((width * 2, height * 2), Image.NEAREST)
+
+    # Define output file name
     base_name = os.path.splitext(os.path.basename(image_path))[0]
-    copy1_path = os.path.join(output_dir, f"{base_name}_copy1.png")
-    copy2_path = os.path.join(output_dir, f"{base_name}_copy2.png")
+    output_path = os.path.join(output_dir, f"{base_name}_enlarged.png")
 
-    # Save two copies
-    img.save(copy1_path)
-    img.save(copy2_path)
+    # Save enlarged image
+    enlarged_img.save(output_path)
 
-    print(f"✅ Two copies saved: {copy1_path}, {copy2_path}")
-    return [copy1_path, copy2_path]
+    print(f"✅ Enlarged image saved: {output_path}")
+    return output_path
 
 
 def main():
     """CLI entry point"""
     parser = argparse.ArgumentParser(
-        description="Duplicate an image into two identical copies."
+        description="Enlarge an image by 2x."
     )
     parser.add_argument("image_path", help="Path to the input image")
-    parser.add_argument("output_dir", help="Directory to save the copies")
+    parser.add_argument("output_dir", help="Directory to save the enlarged image")
 
     args = parser.parse_args()
     enlarge(args.image_path, args.output_dir)
+
+
+if __name__ == "__main__":
+    main()
