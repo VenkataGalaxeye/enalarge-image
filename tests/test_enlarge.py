@@ -1,6 +1,6 @@
 # tests/test_enlarge.py
 
-import os
+
 from pathlib import Path
 import pytest
 from enlarge.enlarge import enlarge
