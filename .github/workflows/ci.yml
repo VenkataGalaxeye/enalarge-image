@@ -35,6 +35,12 @@ jobs:
         pip install --upgrade pip
         pip install -r requirements.txt
         pip install black flake8 pytest pillow
+    
+    - name: Install package in editable mode
+      run: |
+          source venv/bin/activate
+          pip install -e .
+
 
     # 4️⃣ Check code style with Black
     - name: Check code style with Black
