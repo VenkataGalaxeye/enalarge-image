@@ -36,6 +36,12 @@ jobs:
         pip install -r requirements.txt
         pip install pytest pillow flake8
 
+    # 3️⃣ Black-line formatter
+    - name: Check code style with Black
+      run: |
+        pip install black
+        black --check .
+
     # 4️⃣ Run linter
     - name: Lint code with flake8
       run: |

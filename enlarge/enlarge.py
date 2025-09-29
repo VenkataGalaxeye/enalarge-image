@@ -2,6 +2,7 @@ import os
 from PIL import Image
 import argparse
 
+
 def enlarge(image_path: str, output_dir: str = "output"):
     """
     Enlarges the input image (2x scale) and saves it in the output directory.
@@ -41,11 +42,11 @@ def enlarge(image_path: str, output_dir: str = "output"):
 
 def main():
     """CLI entry point"""
-    parser = argparse.ArgumentParser(
-        description="Enlarge an image by 2x."
-    )
+    parser = argparse.ArgumentParser(description="Enlarge an image by 2x.")
     parser.add_argument("image_path", help="Path to the input image")
-    parser.add_argument("output_dir", help="Directory to save the enlarged image")
+    parser.add_argument(
+        "output_dir", help="Directory to save the enlarged image"
+    )
 
     args = parser.parse_args()
     enlarge(args.image_path, args.output_dir)
